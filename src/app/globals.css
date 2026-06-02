@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  ::selection {
+    background-color: rgba(100, 255, 218, 0.3);
+    color: #ccd6f6;
+  }
+}
+
+@layer utilities {
+  .section-heading {
+    @apply flex items-center gap-4 text-2xl font-semibold text-slate-lightest whitespace-nowrap;
+  }
+
+  .section-heading::after {
+    content: "";
+    @apply block h-px w-full max-w-[300px] bg-navy-lighter;
+  }
+}
