@@ -22,17 +22,19 @@ function extractOgImage(html: string, pageUrl: string): string | null {
   return null;
 }
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request: NextRequest) {
   const url = request.nextUrl.searchParams.get("url");
   if (!url) return new NextResponse(null, { status: 400 });
 
   let imageUrl: string | null = null;
 
-  // Step 1: fetch the page server-side and extract og:image
+  // Step 1: fetch the page and extract og:image
   try {
     const page = await fetch(url, {
       headers: { "User-Agent": UA, Accept: "text/html,application/xhtml+xml" },
-      next: { revalidate: 86400 },
+      cache: "no-store",
       signal: AbortSignal.timeout(8000),
     });
     if (page.ok) {
@@ -42,12 +44,12 @@ export async function GET(request: NextRequest) {
     // fallthrough to screenshot service
   }
 
-  // Step 2: fall back to thum.io screenshot if no og:image found
+  // Step 2: fall back to thum.io if no og:image found
   if (!imageUrl) {
     imageUrl = `https://image.thum.io/get/width/1200/${url}`;
   }
 
-  // Step 3: proxy the image bytes — this bypasses hotlink/CDN origin checks
+  // Step 3: proxy the image bytes so hotlink protection is bypassed
   try {
     const siteOrigin = new URL(url).origin;
     const img = await fetch(imageUrl, {
@@ -56,7 +58,7 @@ export async function GET(request: NextRequest) {
         Referer: `${siteOrigin}/`,
         Accept: "image/*,*/*",
       },
-      next: { revalidate: 86400 },
+      cache: "no-store",
       signal: AbortSignal.timeout(12000),
     });
 
