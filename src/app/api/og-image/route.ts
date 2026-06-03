@@ -66,7 +66,7 @@ export async function GET(request: NextRequest) {
     return new NextResponse(buffer, {
       headers: {
         "Content-Type": img.headers.get("Content-Type") ?? "image/jpeg",
-        "Cache-Control": "public, max-age=86400, stale-while-revalidate=86400",
+        "Cache-Control": "private, max-age=86400",
       },
     });
   } catch {
