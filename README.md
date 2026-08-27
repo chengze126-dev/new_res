@@ -39,6 +39,12 @@ This project is built with Next.js, TypeScript, and Tailwind CSS.
 
 ---
 
+## Contributing
+
+Contributions and improvements are welcome.
+
+---
+
 ## Getting Started
 
 Install dependencies and start the development server:
@@ -46,3 +52,5 @@ Install dependencies and start the development server:
 ```bash
 npm install
 npm run dev
+
+
