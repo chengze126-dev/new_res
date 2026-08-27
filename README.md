@@ -36,3 +36,13 @@ Full Stack Developer with 9 years of experience building products across the ent
 ## Development
 
 This project is built with Next.js, TypeScript, and Tailwind CSS.
+
+---
+
+## Getting Started
+
+Install dependencies and start the development server:
+
+```bash
+npm install
+npm run dev
